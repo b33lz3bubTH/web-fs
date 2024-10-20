@@ -40,6 +40,9 @@ This is a basic file system viewer with authentication protection, folder traver
 
 ![Reference UI](./ref/base-img.png)
 
+![Reference Video Playback Modal](./ref/video-playback.png)
+
+
 This image represents the basic structure and layout of the application.
 
 ## Getting Started

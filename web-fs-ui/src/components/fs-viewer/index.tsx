@@ -7,6 +7,7 @@ import {
 } from "@ant-design/icons";
 import { Button, Card } from "antd";
 import { FileClassifier } from "./service";
+import ModalVideo from "react-modal-video"; // Modal Video
 
 export interface IFile {
   createdAt: string;
@@ -37,6 +38,9 @@ export function Files() {
   const { fetchFiles, files } = useFetchFilesFile();
   const [path, setPath] = useState(".");
   const [pathHistory, setPathHistory] = useState<string[]>([]);
+  const [isOpen, setOpen] = useState(false); // Modal video state
+  const [videoUrl, setVideoUrl] = useState("");
+
   const fileClassifier = new FileClassifier();
 
   useEffect(() => {
@@ -64,10 +68,16 @@ export function Files() {
 
     const fileCategory = fileClassifier.checkFile(fileName);
     if (fileCategory === "media") {
-      window.open(
-        Api.MediaView({ filePath: sanitizedPath, token: "....." }),
-        "_blank",
-      );
+      //window.open(
+      //Api.MediaView({ filePath: sanitizedPath, token: "....." }),
+      //"_blank",
+      //);
+      const videoSrc = Api.MediaView({
+        filePath: sanitizedPath,
+        token: ".....",
+      });
+      setVideoUrl(videoSrc); // Set the video URL for modal
+      setOpen(true); // Open the modal
       return;
     }
     alert("cant open this kind of files.");
@@ -118,6 +128,13 @@ export function Files() {
           </div>
         ))}
       </div>
+      <ModalVideo
+        channel="custom" // Custom for direct URL loading
+        isOpen={isOpen}
+        url={videoUrl}
+        onClose={() => setOpen(false)}
+        autoplay
+      />
     </div>
   );
 }
