@@ -94,7 +94,6 @@ export const validateSession = api(
             throw new Error(`invalid session`);
         }
 
-        // Check if the session has expired
         if (new Date() > new Date(session.expiresAt)) {
             throw new Error(`session has expired`);
         }

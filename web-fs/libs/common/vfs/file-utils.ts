@@ -63,7 +63,6 @@ export class FileUtils {
         return inodes;
     }
 
-    // Create a file
     static async createFile(
         filePath: string,
         content: string = "",
@@ -71,12 +70,10 @@ export class FileUtils {
         await fs.writeFile(filePath, content, "utf-8");
     }
 
-    // Delete a file
     static async deleteFile(filePath: string): Promise<void> {
         await fs.unlink(filePath);
     }
 
-    // Delete a directory
     static async deleteDirectory(dirPath: string): Promise<void> {
         await fs.rmdir(dirPath, { recursive: true });
     }
